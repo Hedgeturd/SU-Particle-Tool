@@ -54,15 +54,15 @@ public class SparkleFunctions
         writer.WriteAttributeString("xsd", "http://www.w3.org/2001/XMLSchema");
         
         writer.WriteStartElement("ExportInfo");
-        writer.WriteElementString("ExportDate", Sparkle.sparkleFile.Header.exportDate.ToString());
-        writer.WriteElementString("Version", Sparkle.sparkleFile.Header.version.ToString());
+        writer.WriteElementString("ExportDate", SparkleBin.SparkleFile.Header.exportDate.ToString());
+        writer.WriteElementString("Version", SparkleBin.SparkleFile.Header.version.ToString());
         writer.WriteElementString("Author", null);
         writer.WriteEndElement();
 
         writer.WriteStartElement("MaterialSaveLoad");
         writer.WriteStartElement("ExportInfo");
-        writer.WriteElementString("ExportDate", Sparkle.sparkleFile.Header.exportDate.ToString());
-        writer.WriteElementString("Version", Sparkle.sparkleFile.Header.version.ToString());
+        writer.WriteElementString("ExportDate", SparkleBin.SparkleFile.Header.exportDate.ToString());
+        writer.WriteElementString("Version", SparkleBin.SparkleFile.Header.version.ToString());
         writer.WriteElementString("Author", null);
         writer.WriteEndElement();
         

@@ -1,14 +1,14 @@
 ﻿using System.Xml;
 namespace SU_Particle_Tool;
 
-public class XML
+public class SparkleXml
 {
-    public static void SparkleReadXml(string path)
+    public static void ReadXml(string path)
     {
         
     }
     
-    public static void SparkleWriteXml(string path)
+    public static void WriteXml(string path)
     {
         File.Delete(Path.Combine(Path.GetFileNameWithoutExtension(path) + ".xml"));
         var xmlWriterSettings = new XmlWriterSettings { Indent = true };
@@ -16,12 +16,12 @@ public class XML
         
         writer.WriteStartDocument();
 
-        switch (Sparkle.sparkleFile.Header.type)
+        switch (SparkleBin.SparkleFile.Header.type)
         {
             case "CEffect":
                 break;
             case "Material":
-                SparkleFunctions.MaterialWriteXML(writer, Sparkle.sparkleFile.Material);
+                SparkleFunctions.MaterialWriteXML(writer, SparkleBin.SparkleFile.Material);
                 break;
             default:
                 Console.WriteLine("Unknown Type");

@@ -14,8 +14,8 @@
                         // Code :D
                         break;
                     case ".p-mat-bin":
-                        Sparkle.SparkleReadBin(file);
-                        XML.SparkleWriteXml(file);
+                        SparkleBin.ReadBin(file);
+                        SparkleXml.WriteXml(file);
                         break;
                     case ".xml":
                         //XML.ReadXML(args[0]);

@@ -1,11 +1,9 @@
-﻿using System.Drawing;
+﻿namespace SU_Particle_Tool;
 
-namespace SU_Particle_Tool;
-
-public class Sparkle
+public class SparkleBin
 {
-    public static Structs.SparkleFile sparkleFile = new Structs.SparkleFile();
-    public static void SparkleReadBin(string path)
+    public static Structs.SparkleFile SparkleFile = new Structs.SparkleFile();
+    public static void ReadBin(string path)
     {
         // K1 Sparkles
         FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -28,23 +26,23 @@ public class Sparkle
             case "CEffect":
                 Console.WriteLine("InportExportEffect");
                 Structs.SparkleCEffect CEffectIn = new Structs.SparkleCEffect();
-                sparkleFile.CEffect = CEffectIn;
+                SparkleFile.CEffect = CEffectIn;
                 break;
             case "Material":
                 Console.WriteLine("InportExportMaterial");
                 Structs.SparkleMaterial MaterialIn = new Structs.SparkleMaterial();
                 MaterialIn = SparkleFunctions.MaterialReadBin(binaryReader, MaterialIn);
-                sparkleFile.Material = MaterialIn;
+                SparkleFile.Material = MaterialIn;
                 break;
             default:
                 Console.WriteLine("Unknown Type");
                 break;
         }
         
-        sparkleFile.Header = SparkleIn;
+        SparkleFile.Header = SparkleIn;
     }
     
-    public static void SparkleWriteBin()
+    public static void WriteBin()
     {
         // K1 Sparkles
         
