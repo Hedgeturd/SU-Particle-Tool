@@ -50,8 +50,8 @@ public class SparkleFunctions
     public static void MaterialWriteXML(XmlWriter writer, Structs.SparkleMaterial material)
     {
         writer.WriteStartElement("InportExportMaterial");
-        writer.WriteAttributeString("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        writer.WriteAttributeString("xsd", "http://www.w3.org/2001/XMLSchema");
+        writer.WriteAttributeString("xmlns", "xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        writer.WriteAttributeString("xmlns", "xsd", "http://www.w3.org/2001/XMLSchema");
         
         writer.WriteStartElement("ExportInfo");
         writer.WriteElementString("ExportDate", SparkleBin.SparkleFile.Header.exportDate.ToString());
