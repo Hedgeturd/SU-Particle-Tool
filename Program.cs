@@ -18,8 +18,8 @@
                         SparkleXml.WriteXml(file);
                         break;
                     case ".xml":
-                        //XML.ReadXML(args[0]);
-                        //XML.WriteBIN(args[0]);
+                        //SparkleXml.ReadXml(file);
+                        //SparkleBin.WriteBin(file);
                         break;
                     default:
                         Console.WriteLine("Invalid file extension");
