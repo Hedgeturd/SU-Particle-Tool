@@ -82,6 +82,13 @@ namespace SU_Particle_Tool {
             return Name;
         }
 
+        public static bool ReadBool(BinaryReader binaryReader)
+        {
+            bool Value = BitConverter.ToBoolean(binaryReader.ReadBytes(1), 0);
+            binaryReader.BaseStream.Seek(3, SeekOrigin.Current);
+            return Value;
+        }
+
         public static void SkipPadding(int NameLength, BinaryReader binaryReader)
         {
             long currentPos = binaryReader.BaseStream.Position;
