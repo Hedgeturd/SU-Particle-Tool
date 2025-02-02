@@ -10,28 +10,37 @@ public class SparkleBin
         BinaryReader binaryReader = new BinaryReader(fileStream);
         Structs.SparkleHeader SparkleIn = new Structs.SparkleHeader();
         
-        SparkleIn.editor = Common.ReadName(binaryReader);
-        Console.WriteLine(SparkleIn.editor);
-        SparkleIn.type = Common.ReadName(binaryReader);
-        Console.WriteLine(SparkleIn.type);
+        SparkleIn.Editor = Common.ReadName(binaryReader);
+        Console.WriteLine(SparkleIn.Editor);
+        SparkleIn.Type = Common.ReadName(binaryReader);
+        Console.WriteLine(SparkleIn.Type);
+
+        if (SparkleIn.Type == "CEffect")
+        {
+            SparkleIn.EmitterCount = binaryReader.ReadInt32();
+            Console.WriteLine(SparkleIn.EmitterCount);
+            SparkleIn.ParticleCount = binaryReader.ReadInt32();
+            Console.WriteLine(SparkleIn.ParticleCount);
+        }
         
         Console.WriteLine("\nExportInfo");
-        SparkleIn.exportDate = binaryReader.ReadInt64();
-        Console.WriteLine(SparkleIn.exportDate);
-        SparkleIn.version = binaryReader.ReadInt32();
-        Console.WriteLine(SparkleIn.version);
+        SparkleIn.ExportDate = binaryReader.ReadInt64();
+        Console.WriteLine(SparkleIn.ExportDate);
+        SparkleIn.Version = binaryReader.ReadInt32();
+        Console.WriteLine(SparkleIn.Version);
 
-        switch (SparkleIn.type)
+        switch (SparkleIn.Type)
         {
             case "CEffect":
                 Console.WriteLine("InportExportEffect");
                 Structs.SparkleCEffect CEffectIn = new Structs.SparkleCEffect();
+                CEffectIn = SparkleFunctions.CEffectReadBin(binaryReader, SparkleIn, CEffectIn);
                 SparkleFile.CEffect = CEffectIn;
                 break;
             case "Material":
                 Console.WriteLine("InportExportMaterial");
                 Structs.SparkleMaterial MaterialIn = new Structs.SparkleMaterial();
-                MaterialIn = SparkleFunctions.MaterialReadBin(binaryReader, MaterialIn);
+                MaterialIn = SparkleFunctions.MaterialReadBin(binaryReader, SparkleIn, MaterialIn);
                 SparkleFile.Material = MaterialIn;
                 break;
             default:
