@@ -11,7 +11,8 @@
                 switch (Path.GetExtension(file))
                 {
                     case ".part-bin":
-                        // Code :D
+                        SparkleBin.ReadBin(file);
+                        //SparkleXml.WriteXml(file);
                         break;
                     case ".p-mat-bin":
                         SparkleBin.ReadBin(file);
