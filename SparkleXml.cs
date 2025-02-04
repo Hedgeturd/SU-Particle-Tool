@@ -5,7 +5,10 @@ public class SparkleXml
 {
     public static void ReadXml(string path)
     {
-        
+        /*
+         * This may not end up being used.
+         * Unless someone wants to make mods that include binaries and use merge fs.
+         */
     }
     
     public static void WriteXml(string path)
@@ -19,10 +22,10 @@ public class SparkleXml
         switch (SparkleBin.SparkleFile.Header.Type)
         {
             case "CEffect":
-                //SparkleFunctions.CEffectWriteXml(writer, SparkleBin.SparkleFile.CEffect);
+                CEffectFunctions.CEffectWriteXml(writer, SparkleBin.SparkleFile.CEffect);
                 break;
             case "Material":
-                SparkleFunctions.MaterialWriteXml(writer, SparkleBin.SparkleFile.Material);
+                MaterialFunctions.MaterialWriteXml(writer, SparkleBin.SparkleFile.Material);
                 break;
             default:
                 Console.WriteLine("Unknown Type");
