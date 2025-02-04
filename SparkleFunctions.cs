@@ -5,17 +5,7 @@ namespace SU_Particle_Tool;
 
 public class SparkleFunctions
 {
-    public enum Address {
-        CLAMP,
-        WRAP
-    }
-    
-    public enum Blends {
-        Typical = 1,
-        Add = 2
-    }
-
-    static Structs.CylinderParams CylinderParamReadBin(BinaryReader binaryReader, Structs.EmitterSaveLoad emitterSaveLoad)
+    static CEffectStructs.CylinderParams CylinderParamReadBin(BinaryReader binaryReader, CEffectStructs.EmitterSaveLoad emitterSaveLoad)
     {
         var cylinder = emitterSaveLoad.CylinderParams;
         cylinder.m_equiangularly = BitConverter.ToBoolean(binaryReader.ReadBytes(1), 0);
@@ -33,7 +23,7 @@ public class SparkleFunctions
         return cylinder;
     }
 
-    static void SphereParamReadBin(BinaryReader binaryReader, ref Structs.EmitterSaveLoad emitterSaveLoad)
+    static void SphereParamReadBin(BinaryReader binaryReader, ref CEffectStructs.EmitterSaveLoad emitterSaveLoad)
     {
         emitterSaveLoad.m_latitude_max_angle = binaryReader.ReadSingle();
         emitterSaveLoad.m_longitude_max_angle = binaryReader.ReadSingle();
@@ -88,11 +78,11 @@ public class SparkleFunctions
         }
 
         Console.WriteLine("\nEmitterSaveLoadList");
-        List<Structs.EmitterSaveLoad> emitterSaveLoadList = new List<Structs.EmitterSaveLoad>();
+        List<CEffectStructs.EmitterSaveLoad> emitterSaveLoadList = new List<CEffectStructs.EmitterSaveLoad>();
 
         for (int i = 0; i < sparkleIn.EmitterCount; i++)
         {
-            Structs.EmitterSaveLoad emitterSaveLoad = new Structs.EmitterSaveLoad();
+            CEffectStructs.EmitterSaveLoad emitterSaveLoad = new CEffectStructs.EmitterSaveLoad();
             Console.WriteLine("\nEmitterSaveLoad");
             emitterSaveLoad.Type = Common.ReadName(binaryReader);
             emitterSaveLoad.ParticleCount = binaryReader.ReadInt32();
@@ -129,7 +119,22 @@ public class SparkleFunctions
 
             for (int p = 0; p < emitterSaveLoad.ParticleCount; p++)
             {
+                CEffectStructs.ParticleSaveLoad particleSaveLoad = new CEffectStructs.ParticleSaveLoad();
+                particleSaveLoad.Type = Common.ReadName(binaryReader);
+                particleSaveLoad.ParticleName = Common.ReadName(binaryReader);
                 
+                particleSaveLoad.LifeTime = binaryReader.ReadSingle();
+                particleSaveLoad.LifeTimeBias = binaryReader.ReadSingle();
+                
+                particleSaveLoad.RotationZ = binaryReader.ReadSingle();
+                particleSaveLoad.RotationZBias = binaryReader.ReadSingle();
+                particleSaveLoad.InitialRotationZ = binaryReader.ReadSingle();
+                particleSaveLoad.InitialRotationZBias = binaryReader.ReadSingle();
+                
+                particleSaveLoad.InitialSpeed = binaryReader.ReadSingle();
+                particleSaveLoad.InitialSpeedBias = binaryReader.ReadSingle();
+                particleSaveLoad.ZOffset = binaryReader.ReadSingle();
+                particleSaveLoad.LocusDiff = binaryReader.ReadSingle();
             }
 
             Console.WriteLine("\nEnd");
@@ -166,9 +171,9 @@ public class SparkleFunctions
         material.addressMode = binaryReader.ReadInt32();
         material.blendMode = binaryReader.ReadInt32();
 
-        Console.WriteLine((Address)material.addressMode);
+        Console.WriteLine((Structs.Address)material.addressMode);
 
-        Console.WriteLine((Blends)material.blendMode);
+        Console.WriteLine((Structs.Blends)material.blendMode);
 
         Console.WriteLine();
 
@@ -197,8 +202,8 @@ public class SparkleFunctions
         writer.WriteElementString("deflectionTextureName", material.deflectionTextureName);
         writer.WriteElementString("shaderName", material.shaderName);
 
-        writer.WriteElementString("blendMode", ((Blends)material.blendMode).ToString());
-        writer.WriteElementString("addressMode", ((Address)material.addressMode).ToString());
+        writer.WriteElementString("blendMode", ((Structs.Blends)material.blendMode).ToString());
+        writer.WriteElementString("addressMode", ((Structs.Address)material.addressMode).ToString());
         writer.WriteElementString("uvDescType", "UVDesc_1x1");
         writer.WriteEndElement();
     }
