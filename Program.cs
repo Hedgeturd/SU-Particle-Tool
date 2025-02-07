@@ -4,8 +4,12 @@
     {
         static void Main(string[] args)
         {
+            if (args.Length == 0) {
+                Console.WriteLine("SU-Particle-Tool v1.0\nUsage: SU-Particle-Tool <Path to .part-bin/.p-mat-bin>");
+                Console.ReadKey();
+            }
+            
             string file = Path.GetDirectoryName(args[0]) + "\\" + Path.GetFileName(args[0]);
-
             if (File.Exists(file))
             {
                 switch (Path.GetExtension(file))
