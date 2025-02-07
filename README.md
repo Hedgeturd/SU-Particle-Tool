@@ -1,5 +1,5 @@
 # Sonic Unleashed Particle Tool
-A tool to convert Unleashed Part-Bin and P-Mat-Bin files into Particle and P-Material files
+A tool to convert Unleashed .Part-Bin and .P-Mat-Bin files into .Particle and .P-Material files
 
 ## Usage
 `SU-Particle-Tool <Path to .part-bin/.p-mat-bin>`\
