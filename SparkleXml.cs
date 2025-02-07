@@ -13,9 +13,23 @@ public class SparkleXml
     
     public static void WriteXml(string path)
     {
-        File.Delete(Path.Combine(Path.GetFileNameWithoutExtension(path) + ".p-material"));
+        string extension = null;
+        switch (SparkleBin.SparkleFile.Header.Type)
+        {
+            case "Material":
+                extension = ".p-material";
+                break;
+            case "CEffect":
+                extension = ".particle";
+                break;
+            default:
+                Console.WriteLine("Unknown Type");
+                return;
+        }
+        
+        File.Delete(Path.Combine(Path.GetFileNameWithoutExtension(path) + extension));
         var xmlWriterSettings = new XmlWriterSettings { Indent = true };
-        using var writer = XmlWriter.Create(Path.GetDirectoryName(path) + "\\" + Path.GetFileNameWithoutExtension(path) + ".p-material", xmlWriterSettings);
+        using var writer = XmlWriter.Create(Path.GetDirectoryName(path) + "\\" + Path.GetFileNameWithoutExtension(path) + extension, xmlWriterSettings);
         
         writer.WriteStartDocument();
 

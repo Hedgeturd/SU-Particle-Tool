@@ -12,7 +12,7 @@
                 {
                     case ".part-bin":
                         SparkleBin.ReadBin(file);
-                        //SparkleXml.WriteXml(file);
+                        SparkleXml.WriteXml(file);
                         break;
                     case ".p-mat-bin":
                         SparkleBin.ReadBin(file);
