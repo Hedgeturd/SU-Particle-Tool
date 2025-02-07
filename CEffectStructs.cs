@@ -13,6 +13,27 @@ public class CEffectStructs
         Sphere
     }
 
+    public enum EmitConditions
+    {
+        Time
+    }
+    public enum cylinderEmittionTypes
+    {
+        ECylinder_UserVelocity
+    }
+    public struct CylinderParams
+    {
+        public bool m_equiangularly ;
+        public bool m_circumference;
+        public bool m_isCone;
+        public float m_angle;
+        public float m_radius;
+        public float m_height;
+        public float m_minAngle;
+        public float m_maxAngle;
+        public int m_cylinderEmittionType;
+    }
+
     // Emitters
     public struct EmitterSaveLoad
     {
@@ -44,21 +65,11 @@ public class CEffectStructs
 
         public int AnimCount;
         public Animations EmitterAnim;
+        
+        public List<ParticleSaveLoad> ParticleSaveLoad;
     }
-
+    
     // Particle Enums
-    public struct CylinderParams
-    {
-        public bool m_equiangularly ;
-        public bool m_circumference;
-        public bool m_isCone;
-        public float m_angle;
-        public float m_radius;
-        public float m_height;
-        public float m_minAngle;
-        public float m_maxAngle;
-        public int m_cylinderEmittionType;
-    }
     public enum LocusUVTypes
     {
         EAllOver,
@@ -181,7 +192,7 @@ public class CEffectStructs
         
         public string RefEffectName;    
         public int RefEffectEmitTimingType;
-        public int RefEffectDelayTime;
+        public float RefEffectDelayTime;
 
         public float DirectionalVelocityRatio;
         public float DeflectionScale;
