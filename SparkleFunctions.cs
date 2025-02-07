@@ -5,7 +5,7 @@ namespace SU_Particle_Tool;
 
 public class SparkleFunctions
 {
-    public static void WriteExportXml(XmlWriter writer)
+    static string ExportDateConversion()
     {
         string exportDate = SparkleBin.SparkleFile.Header.ExportDate.ToString();
         string exportDateYear = exportDate.Substring(0, 4);
@@ -16,19 +16,39 @@ public class SparkleFunctions
         string exportDateMinute = exportDate.Substring(10, 2);
         string exportDateSecond = exportDate.Substring(12, 2);
 
-        string exportDateReformat = exportDateYear + "/" + exportDateMonth + "/" + exportDateDate + "/" +
+        return exportDateYear + "/" + exportDateMonth + "/" + exportDateDate + "/" +
                                     exportDateHour + ":" + exportDateMinute + ":" + exportDateSecond;
-        
+    }
+
+    static string VersionConversion()
+    {
         string version = SparkleBin.SparkleFile.Header.Version.ToString();
         string versionYear = version.Substring(0, 4);
         string versionMonth = version.Substring(4, 2);
         string versionDate = version.Substring(6, 2);
 
-        string versionReformat = versionYear + "/" + versionMonth + "/" + versionDate;
-                                    writer.WriteStartElement("ExportInfo");
+        return versionYear + "/" + versionMonth + "/" + versionDate;
+    }
+
+    public static void WriteExportXml(XmlWriter writer)
+    {
+        string exportDateReformat = ExportDateConversion();
+        string versionReformat = VersionConversion();
+        
+        writer.WriteStartElement("ExportInfo");
         writer.WriteElementString("ExportDate", exportDateReformat);
         writer.WriteElementString("Version", versionReformat);
         writer.WriteElementString("Author", "Sonic_Team");
         writer.WriteEndElement();
+    }
+    
+    public static void WriteQuickExportXml(XmlWriter writer)
+    {
+        string exportDateReformat = ExportDateConversion();
+        string versionReformat = VersionConversion();
+        
+        writer.WriteElementString("ExportDate", exportDateReformat);
+        writer.WriteElementString("Version", versionReformat);
+        writer.WriteElementString("Author", "Sonic_Team");
     }
 }
