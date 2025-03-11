@@ -13,7 +13,7 @@ You can also simply drag and drop supported file formats onto the executable.
 > Converting them back at the moment will cause a crash as there are new parameters!<br>
 > This is subject to change!!<br>
 > <br>
-> (This Could also apply to .P-Materials however it is just the removal of the UVDescType parameter, easily remedied)
+> This Could also apply to .P-Materials however it is just the removal of the UVDescType parameter, easily remedied.
 
 ## To Do
 ~~- Add XML to Binary support (if needed)~~
