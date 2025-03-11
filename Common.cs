@@ -3,22 +3,7 @@ using System.Xml;
 
 namespace SU_Particle_Tool {
     class Common {
-
-        /*public static int EndianSwap(int a) {
-            byte[] x = BitConverter.GetBytes(a);
-            Array.Reverse(x);
-            int b = BitConverter.ToInt32(x, 0);
-            return b;
-        }
-
-        public static float EndianSwapFloat(float a) {
-            byte[] x = BitConverter.GetBytes(a);
-            Array.Reverse(x);
-            float b = BitConverter.ToSingle(x, 0);
-            return b;
-        }*/
-        
-        public static void SkipPadding(int NameLength, BinaryReader binaryReader)
+        public static void SkipPadding(BinaryReader binaryReader)
         {
             long currentPos = binaryReader.BaseStream.Position;
             binaryReader.BaseStream.Position = (currentPos + (4 - 1)) & ~(4 - 1);
@@ -27,8 +12,8 @@ namespace SU_Particle_Tool {
         public static string ReadName(BinaryReader binaryReader)
         {
             byte NameLength = binaryReader.ReadByte();
-            string Name = System.Text.Encoding.UTF8.GetString(binaryReader.ReadBytes(NameLength));
-            Common.SkipPadding(NameLength, binaryReader);
+            string Name = Encoding.UTF8.GetString(binaryReader.ReadBytes(NameLength));
+            SkipPadding(binaryReader);
             return Name;
         }
 
@@ -39,30 +24,29 @@ namespace SU_Particle_Tool {
             return Value;
         }
 
-        public static void WritePadding(string Name, BinaryWriter binaryWriter)
+        public static void WritePadding(BinaryWriter binaryWriter)
         {
-            int padding = (4 - Name.Length % 4) % 4;
-            if (padding == 0)
+            long currentPos = binaryWriter.BaseStream.Position;
+            long thing = (currentPos + (4 - 1)) & ~(4 - 1);
+
+            while (binaryWriter.BaseStream.Position < thing )
             {
-                binaryWriter.Write(0);
+                binaryWriter.Write((byte)64);
             }
-            else
+        }
+        
+        public static void BoolPadding(BinaryWriter writer)
+        {
+            long currentPos = writer.BaseStream.Position;
+            long thing = (currentPos + (4 - 1)) & ~(4 - 1);
+
+            while (writer.BaseStream.Position < thing )
             {
-                for (int i = 0; i < padding; i++)
-                {
-                    byte hi = 0;
-                    binaryWriter.Write(hi);
-                }
+                writer.Write((byte)0);
             }
         }
 
         // XML Functions
-        public static void ConvString(BinaryWriter writer, string value)  {
-            // Turning string into Byte Array so the data can be written properly
-            byte[] utf8Bytes = Encoding.UTF8.GetBytes(value);
-            writer.Write(utf8Bytes);
-        }
-
         public static void RemoveComments(XmlNode node)
         {
             if (node == null) return;

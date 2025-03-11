@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             if (args.Length == 0) {
-                Console.WriteLine("SU-Particle-Tool v1.0\nUsage: SU-Particle-Tool <Path to .part-bin/.p-mat-bin>");
+                Console.WriteLine("SU-Particle-Tool v2.0\nUsage: SU-Particle-Tool <Path to .part-bin/.p-mat-bin>");
                 Console.ReadKey();
                 return;
             }
@@ -23,9 +23,13 @@
                         SparkleBin.ReadBin(file);
                         SparkleXml.WriteXml(file);
                         break;
-                    case ".xml":
-                        //SparkleXml.ReadXml(file);
-                        //SparkleBin.WriteBin(file);
+                    case ".particle":
+                        SparkleXml.ReadXml(file);
+                        SparkleBin.WriteBin(file);
+                        break;
+                    case ".p-material":
+                        SparkleXml.ReadXml(file);
+                        SparkleBin.WriteBin(file);
                         break;
                     default:
                         Console.WriteLine("Invalid file extension");

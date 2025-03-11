@@ -1,20 +1,27 @@
 ﻿using System.Xml;
+using SU_Particle_Tool.Sparkle;
+
 namespace SU_Particle_Tool;
 
 public class SparkleXml
 {
+    public static Composite SparkleCompositeXml = new Composite();
     public static void ReadXml(string path)
     {
-        /*
-         * This may not end up being used.
-         * Unless someone wants to make mods that include binaries and use merge fs.
-         */
+        string filePath = Path.GetDirectoryName(path) + "\\" + Path.GetFileName(path);
+        XmlDocument xDoc = new XmlDocument();
+        xDoc.Load(filePath);
+        Common.RemoveComments(xDoc);
+        XmlElement? xRoot = xDoc.DocumentElement;
+        
+        SparkleCompositeXml = Composite.ReadXml(xRoot);
+        Console.WriteLine("Done Reading XML");
     }
     
     public static void WriteXml(string path)
     {
         string extension = null;
-        switch (SparkleBin.SparkleFile.Header.Type)
+        switch (SparkleBin.SparkleCompositeBin.Header.Type)
         {
             case "Material":
                 extension = ".p-material";
@@ -33,13 +40,13 @@ public class SparkleXml
         
         writer.WriteStartDocument();
 
-        switch (SparkleBin.SparkleFile.Header.Type)
+        switch (SparkleBin.SparkleCompositeBin.Header.Type)
         {
             case "CEffect":
-                CEffectFunctions.CEffectWriteXml(writer, SparkleBin.SparkleFile.CEffect);
+                Sparkle.Particle.Effect.WriteXml(writer, SparkleBin.SparkleCompositeBin.CEffect);
                 break;
             case "Material":
-                MaterialFunctions.MaterialWriteXml(writer, SparkleBin.SparkleFile.Material);
+                Sparkle.P_Material.Material.WriteXml(writer, SparkleBin.SparkleCompositeBin.Material);
                 break;
             default:
                 Console.WriteLine("Unknown Type");
