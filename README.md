@@ -8,6 +8,13 @@ You can also simply drag and drop supported file formats onto the executable.
 > [!NOTE]
 > The .Particle and .P-Material file formats can still be used in Unleashed as the game still supports them
 
+> [!WARNING]
+> Any .Particle files that were made by the tool before the next release will no longer work!<br>
+> Converting them back at the moment will cause a crash as there are new parameters!<br>
+> This is subject to change!!<br>
+> <br>
+> (This Could also apply to .P-Materials however it is just the removal of the UVDescType parameter, easily remedied)
+
 ## To Do
 ~~- Add XML to Binary support (if needed)~~
 
